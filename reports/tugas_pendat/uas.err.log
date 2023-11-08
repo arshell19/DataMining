@@ -1,0 +1,82 @@
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/jupyter_cache/executors/utils.py", line 58, in single_nb_execution
+    executenb(
+  File "/usr/local/lib/python3.10/dist-packages/nbclient/client.py", line 1305, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+  File "/usr/local/lib/python3.10/dist-packages/jupyter_core/utils/__init__.py", line 173, in wrapped
+    return loop.run_until_complete(inner)
+  File "/usr/lib/python3.10/asyncio/base_events.py", line 649, in run_until_complete
+    return future.result()
+  File "/usr/local/lib/python3.10/dist-packages/nbclient/client.py", line 705, in async_execute
+    await self.async_execute_cell(
+  File "/usr/local/lib/python3.10/dist-packages/nbclient/client.py", line 1058, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/usr/local/lib/python3.10/dist-packages/nbclient/client.py", line 914, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+gaussian = GaussianNB()
+gaussian.fit(X_train, y_train)
+Y_pred = gaussian.predict(X_test) 
+accuracy_nb=round(accuracy_score(y_test,Y_pred)* 100, 2)
+acc_gaussian = round(gaussian.score(X_train, y_train) * 100, 2)
+
+cm = confusion_matrix(y_test, Y_pred)
+accuracy = accuracy_score(y_test,Y_pred)
+precision =precision_score(y_test, Y_pred,average='micro')
+recall =  recall_score(y_test, Y_pred,average='micro')
+f1 = f1_score(y_test,Y_pred,average='micro')
+print('Confusion matrix for Naive Bayes\n',cm)
+print('accuracy_Naive Bayes: %.3f' %accuracy)
+print('precision_Naive Bayes: %.3f' %precision)
+print('recall_Naive Bayes: %.3f' %recall)
+print('f1-score_Naive Bayes : %.3f' %f1)
+------------------
+
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mTypeError[0m                                 Traceback (most recent call last)
+[0;32m<ipython-input-20-8175563c0ce4>[0m in [0;36m<cell line: 2>[0;34m()[0m
+[1;32m      1[0m [0mgaussian[0m [0;34m=[0m [0mGaussianNB[0m[0;34m([0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m----> 2[0;31m [0mgaussian[0m[0;34m.[0m[0mfit[0m[0;34m([0m[0mX_train[0m[0;34m,[0m [0my_train[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m      3[0m [0mY_pred[0m [0;34m=[0m [0mgaussian[0m[0;34m.[0m[0mpredict[0m[0;34m([0m[0mX_test[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m      4[0m [0maccuracy_nb[0m[0;34m=[0m[0mround[0m[0;34m([0m[0maccuracy_score[0m[0;34m([0m[0my_test[0m[0;34m,[0m[0mY_pred[0m[0;34m)[0m[0;34m*[0m [0;36m100[0m[0;34m,[0m [0;36m2[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m      5[0m [0macc_gaussian[0m [0;34m=[0m [0mround[0m[0;34m([0m[0mgaussian[0m[0;34m.[0m[0mscore[0m[0;34m([0m[0mX_train[0m[0;34m,[0m [0my_train[0m[0;34m)[0m [0;34m*[0m [0;36m100[0m[0;34m,[0m [0;36m2[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m/usr/local/lib/python3.10/dist-packages/sklearn/naive_bayes.py[0m in [0;36mfit[0;34m(self, X, y, sample_weight)[0m
+[1;32m    265[0m         [0mself[0m[0;34m.[0m[0m_validate_params[0m[0;34m([0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    266[0m         [0my[0m [0;34m=[0m [0mself[0m[0;34m.[0m[0m_validate_data[0m[0;34m([0m[0my[0m[0;34m=[0m[0my[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 267[0;31m         return self._partial_fit(
+[0m[1;32m    268[0m             [0mX[0m[0;34m,[0m [0my[0m[0;34m,[0m [0mnp[0m[0;34m.[0m[0munique[0m[0;34m([0m[0my[0m[0;34m)[0m[0;34m,[0m [0m_refit[0m[0;34m=[0m[0;32mTrue[0m[0;34m,[0m [0msample_weight[0m[0;34m=[0m[0msample_weight[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    269[0m         )
+
+[0;32m/usr/local/lib/python3.10/dist-packages/sklearn/naive_bayes.py[0m in [0;36m_partial_fit[0;34m(self, X, y, classes, _refit, sample_weight)[0m
+[1;32m    426[0m [0;34m[0m[0m
+[1;32m    427[0m         [0mfirst_call[0m [0;34m=[0m [0m_check_partial_fit_first_call[0m[0;34m([0m[0mself[0m[0;34m,[0m [0mclasses[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 428[0;31m         [0mX[0m[0;34m,[0m [0my[0m [0;34m=[0m [0mself[0m[0;34m.[0m[0m_validate_data[0m[0;34m([0m[0mX[0m[0;34m,[0m [0my[0m[0;34m,[0m [0mreset[0m[0;34m=[0m[0mfirst_call[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    429[0m         [0;32mif[0m [0msample_weight[0m [0;32mis[0m [0;32mnot[0m [0;32mNone[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    430[0m             [0msample_weight[0m [0;34m=[0m [0m_check_sample_weight[0m[0;34m([0m[0msample_weight[0m[0;34m,[0m [0mX[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m/usr/local/lib/python3.10/dist-packages/sklearn/base.py[0m in [0;36m_validate_data[0;34m(self, X, y, reset, validate_separately, **check_params)[0m
+[1;32m    546[0m             [0mvalidated[0m[0;34m.[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    547[0m         """
+[0;32m--> 548[0;31m         [0mself[0m[0;34m.[0m[0m_check_feature_names[0m[0;34m([0m[0mX[0m[0;34m,[0m [0mreset[0m[0;34m=[0m[0mreset[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    549[0m [0;34m[0m[0m
+[1;32m    550[0m         [0;32mif[0m [0my[0m [0;32mis[0m [0;32mNone[0m [0;32mand[0m [0mself[0m[0;34m.[0m[0m_get_tags[0m[0;34m([0m[0;34m)[0m[0;34m[[0m[0;34m"requires_y"[0m[0;34m][0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m/usr/local/lib/python3.10/dist-packages/sklearn/base.py[0m in [0;36m_check_feature_names[0;34m(self, X, reset)[0m
+[1;32m    413[0m [0;34m[0m[0m
+[1;32m    414[0m         [0;32mif[0m [0mreset[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 415[0;31m             [0mfeature_names_in[0m [0;34m=[0m [0m_get_feature_names[0m[0;34m([0m[0mX[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    416[0m             [0;32mif[0m [0mfeature_names_in[0m [0;32mis[0m [0;32mnot[0m [0;32mNone[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    417[0m                 [0mself[0m[0;34m.[0m[0mfeature_names_in_[0m [0;34m=[0m [0mfeature_names_in[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m/usr/local/lib/python3.10/dist-packages/sklearn/utils/validation.py[0m in [0;36m_get_feature_names[0;34m(X)[0m
+[1;32m   1901[0m     [0;31m# mixed type of string and non-string is not supported[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   1902[0m     [0;32mif[0m [0mlen[0m[0;34m([0m[0mtypes[0m[0;34m)[0m [0;34m>[0m [0;36m1[0m [0;32mand[0m [0;34m"str"[0m [0;32min[0m [0mtypes[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m-> 1903[0;31m         raise TypeError(
+[0m[1;32m   1904[0m             [0;34m"Feature names are only supported if all input features have string names, "[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   1905[0m             [0;34mf"but your input has {types} as feature name / column name types. "[0m[0;34m[0m[0;34m[0m[0m
+
+[0;31mTypeError[0m: Feature names are only supported if all input features have string names, but your input has ['int', 'str'] as feature name / column name types. If you want feature names to be stored and validated, you must convert them all to strings, by using X.columns = X.columns.astype(str) for example. Otherwise you can remove feature / column names from your input data, or convert them all to a non-string data type.
+
